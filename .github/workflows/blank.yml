@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [Debug, Release]
-        arch: [amd64, arm64, armhf]
+        arch: [all]
 
     runs-on: ubuntu-20.04
     steps:
