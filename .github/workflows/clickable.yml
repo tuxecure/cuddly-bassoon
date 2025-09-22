@@ -34,7 +34,7 @@ jobs:
       matrix:
          build: [Release, Debug]
          arch: [armhf, arm64, amd64]
-         framework: ['ubuntu-sdk-20.04', 'ubuntu-touch-24.04-1.x']
+         ut_version: ['20.04', 'ut24.04-1.x']
          version: ['refs/tags/5.2.3-youtube']
 
     runs-on: ubuntu-24.04
@@ -43,10 +43,10 @@ jobs:
       - name: build package
         env:
           BUILD_TYPE: ${{ (matrix.build == 'Debug') && '--debug' || '' }}
-          CLICKABLE_FRAMEWORK: ${{ matrix.framework }}
+          CLICKABLE_FRAMEWORK: ${{ (matrix.ut_version == '20.04') && 'ubuntu-sdk-20.04' || 'ubuntu-touch-24.04-1.x' }}
         uses: tuxecure/clickable@v1
         with:
-          image: clickable/ci-ut24.04-1.x-${{ matrix.arch }}
+          image: clickable/ci-${{ matrix.ut_version }}-${{ matrix.arch }}
           run: clickable build --verbose ${BUILD_TYPE}
       - uses: actions/upload-artifact@v4
         with:
