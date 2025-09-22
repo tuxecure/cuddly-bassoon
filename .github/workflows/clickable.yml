@@ -33,7 +33,7 @@ jobs:
       fail-fast: false
       matrix:
          build: [Release, Debug]
-         arch: [armhf, arm64, amd64]
+         arch: [arm64, amd64]
          ut_version: ['20.04', 'ut24.04-1.x']
          version: ['refs/tags/5.2.3-youtube']
 
