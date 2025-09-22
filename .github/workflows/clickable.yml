@@ -34,6 +34,8 @@ jobs:
       matrix:
          build: [Release, Debug]
          arch: [armhf, arm64, amd64]
+         ut_version: ['20.04', 'ut24.04-1.x']
+         framework: ['ubuntu-sdk-20.04', 'ubuntu-touch-24.04-1.x']
          version: ['refs/tags/5.2.3-youtube']
 
     runs-on: ubuntu-24.04
@@ -42,13 +44,14 @@ jobs:
       - name: build package
         env:
           BUILD_TYPE: ${{ (matrix.build == 'Debug') && '--debug' || '' }}
+          CLICKABLE_FRAMEWORK: ${{ matrix.framework }}
         uses: tuxecure/clickable@v1
         with:
-          image: clickable/ci-20.04-${{ matrix.arch }}
+          image: clickable/ci-ut24.04-1.x-${{ matrix.arch }}
           run: clickable build --verbose ${BUILD_TYPE}
       - uses: actions/upload-artifact@v4
         with:
-          name: "ubports-${{ matrix.arch }}--${{ matrix.build }}--click"
+          name: "ubports-${{ matrix.arch }}--${{ matrix.build }}--${{ matrix.ut_version }}--click"
           path: "build/*/app/*.click"
           if-no-files-found: ignore
       - name: Publish to Open Store
