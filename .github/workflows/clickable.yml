@@ -44,7 +44,7 @@ jobs:
           BUILD_TYPE: ${{ (matrix.build == 'Debug') && '--debug' || '' }}
         uses: tuxecure/clickable@v1
         with:
-          image: clickable/ci-16.04-${{ matrix.arch }}
+          image: clickable/ci-20.04-${{ matrix.arch }}
           run: clickable build --verbose ${BUILD_TYPE}
       - uses: actions/upload-artifact@v4
         with:
